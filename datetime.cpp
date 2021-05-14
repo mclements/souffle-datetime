@@ -1,7 +1,7 @@
 #include <ctime>
 #include <cstdint>
 
-#define int_type int32_t
+#define int_type int64_t
 
 extern "C" {
 
