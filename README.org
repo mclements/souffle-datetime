@@ -21,19 +21,21 @@ As a simple example, we have the following Souffle [[https://github.com/mclement
 .decl Test(operator:symbol, timestamp:timestamp, result:symbol)
 
 Times(@from_date("1970-01-01")) :- true.
-Times(@from_date("1970-01-02")) :- true.
+Times(@from_date_time("1970-01-02 00:00:00")) :- true.
+Times(@to_timestamp("03/01/1970", "%d/%m/%Y")) :- true.
 Times(@now()) :- true.
  
 Test("@to_day", timestamp, to_string(@to_day(timestamp))) :- Times(timestamp).
 Test("@to_date", timestamp, @to_date(timestamp)) :- Times(timestamp).
 Test("@to_date_time", timestamp, @to_date_time(timestamp)) :- Times(timestamp).
+Test("@from_timestamp", timestamp, @from_timestamp(timestamp,"%d/%m/%Y")) :- Times(timestamp).
 Test("@age", timestamp1, to_string(@age(timestamp1,timestamp2))) :- 
     Times(timestamp1), Times(timestamp2), timestamp1<timestamp2.
 
 .output Test
 #+end_example
 
-This reads in the functor definitions, declares a Summary relationship, and calculates two values. The code to run this in the interpreter is =souffle test.dl= or, in the compiler, =souffle -c test.dl=. As an example:
+This reads in the functor definitions, declares relationships for times and test results, and calculates test results for each of the times. The code to run this in the interpreter is =souffle test.dl= or, in the compiler, =souffle -c test.dl=. As an example:
 
 #+BEGIN_SRC shell :exports both
   souffle test.dl
@@ -41,17 +43,26 @@ This reads in the functor definitions, declares a Summary relationship, and calc
 #+END_SRC
 
 #+RESULTS:
-| @to_day       |      -3600 |                   0 |
-| @to_day       |      82800 |                   1 |
-| @to_day       | 1620993553 |               18761 |
-| @to_date      |      -3600 |          1970-01-01 |
-| @to_date      |      82800 |          1970-01-02 |
-| @to_date      | 1620993553 |          2021-05-14 |
-| @to_date_time |      -3600 | 1970-01-01 00:00:00 |
-| @to_date_time |      82800 | 1970-01-02 00:00:00 |
-| @to_date_time | 1620993553 | 2021-05-14 13:59:13 |
-| @age          |      -3600 |                   0 |
-| @age          |      -3600 |                  51 |
-| @age          |      82800 |                  51 |
+| @to_day         |      -3600 |                   0 |
+| @to_day         |      82800 |                   1 |
+| @to_day         |     169200 |                   2 |
+| @to_day         | 1621023500 |               18761 |
+| @to_date        |      -3600 |          1970-01-01 |
+| @to_date        |      82800 |          1970-01-02 |
+| @to_date        |     169200 |          1970-01-03 |
+| @to_date        | 1621023500 |          2021-05-14 |
+| @to_date_time   |      -3600 | 1970-01-01 00:00:00 |
+| @to_date_time   |      82800 | 1970-01-02 00:00:00 |
+| @to_date_time   |     169200 | 1970-01-03 00:00:00 |
+| @to_date_time   | 1621023500 | 2021-05-14 22:18:20 |
+| @from_timestamp |      -3600 |          01/01/1970 |
+| @from_timestamp |      82800 |          02/01/1970 |
+| @from_timestamp |     169200 |          03/01/1970 |
+| @from_timestamp | 1621023500 |          14/05/2021 |
+| @age            |      -3600 |                   0 |
+| @age            |      -3600 |                  51 |
+| @age            |      82800 |                   0 |
+| @age            |      82800 |                  51 |
+| @age            |     169200 |                  51 |
 
 Documentation is available in the [[https://github.com/mclements/souffle-datetime/blob/main/datetime.dl][datetime.dl]] file.

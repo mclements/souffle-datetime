@@ -2,7 +2,7 @@
 .type timestamp <: number
 
 // convert a string with a given format to a timestamp
-.functor to_timestamp(string:symbol,format:symbol) : timestamp
+.functor to_timestamp(string:symbol, format:symbol) : timestamp
 
 // convert a date string to a timestamp
 .functor from_date(date:symbol) : timestamp
@@ -14,7 +14,7 @@
 .functor to_day(time:timestamp) : number
 
 // convert a timestamp and format to a string
-.functor from_timestamp(time:timestamp) : symbol
+.functor from_timestamp(time:timestamp, format:symbol) : symbol
 
 // convert a timestamp to a date string
 .functor to_date(time:timestamp) : symbol
