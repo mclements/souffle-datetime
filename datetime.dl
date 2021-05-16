@@ -23,7 +23,7 @@
 .functor to_date_time(time:timestamp) : symbol
 
 // calculate the age in completed years from a timestamp for the birth to the timestamp for an event
-.functor age(birth:timestamp, event:timestamp) : number
+.functor age(event:timestamp, birth:timestamp) : number
 
-// return the current timestamp
-.functor now() : timestamp
+// return the current local timestamp
+.functor localtimestamp() : timestamp

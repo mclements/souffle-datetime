@@ -18,7 +18,7 @@ extern "C" {
   TODO: select a standard date-time API.
   */ 
   
-  int_type now() {
+  int_type localtimestamp() {
     return time(0);
   }
 
@@ -36,7 +36,7 @@ extern "C" {
     return to_timestamp(date, "%Y-%m-%d %H:%M:%S");
   }
 
-  int_type age(const int_type birth_timestamp, const int_type event_timestamp) {
+  int_type age(const int_type event_timestamp, const int_type birth_timestamp) {
     time_t birth(birth_timestamp), event(event_timestamp);
     struct tm tmBirth = *localtime(&birth), tmEvent = *localtime(&event);
     int_type a = tmEvent.tm_year - tmBirth.tm_year;
