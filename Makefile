@@ -1,14 +1,11 @@
 test: libfunctors.so
-	souffle test.dl
-	cat Test.csv
+	souffle -D- test.dl
 
 rosetta: libfunctors.so
-	souffle rosetta.dl
-	cat SummaryDates.csv
-	cat SummaryScores.csv
+	souffle -D- rosetta.dl
 
 movie: libfunctors.so
-	souffle movie.dl
+	souffle -D- movie.dl
 
 libfunctors.so: datetime.cpp
 	g++ -shared -fPIC datetime.cpp -o libfunctors.so
