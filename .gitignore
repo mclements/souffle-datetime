@@ -1,8 +1,8 @@
 *~
 *.csv
 libfunctors.so
-Test.csv
 autom4te.cache
 config.log
 config.status
 configure
+datetime.cpp
