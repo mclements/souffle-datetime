@@ -9,3 +9,13 @@ movie: libfunctors.so
 
 libfunctors.so: datetime.cpp
 	g++ -shared -fPIC datetime.cpp -o libfunctors.so
+
+datetime.cpp: configure
+	./configure
+
+configure: configure.ac
+	autoconf
+
+clean:
+	@rm -f libfunctors.so
+	@rm -f datetime.cpp
