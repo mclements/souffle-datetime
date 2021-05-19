@@ -202,6 +202,7 @@ from movie natural join (select * from james_movies intersect select * from arno
 select title from movie where year<=1979;
 
 /* Chapter 6 */
+/* SQLite-specific function: julianday() */
 create view ages as
        select name, cast((julianday('now')-julianday(born))/365 as int) as age from person;
 select name from ages where age=70;
